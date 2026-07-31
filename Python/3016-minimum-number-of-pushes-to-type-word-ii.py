@@ -1,21 +1,13 @@
-# time complexity: O(nlogn)
-# space complexity: O(n)
-from typing import Counter
-
-
 class Solution:
-    def minimumPushes(self, words: str) -> int:
-        wordCounter = list(Counter(words).values())
-        wordCounter.sort(reverse=True)
-        result = 0
-        for i in range(len(wordCounter)):
-            result += (i // 8 + 1) * wordCounter[i]
-        return result
+    def minimumPushes(self, word: str) -> int:
+        from collections import Counter
+        freq = Counter(word)
+        counts = sorted(freq.values(), reverse=True)
 
+        total = 0
+        for i, c in enumerate(counts):
+            # Each "slot" has cost = (i // 8) + 1
+            cost = (i // 8) + 1
+            total += c * cost
+        return total
 
-word = "abcde"
-print(Solution().minimumPushes(word))
-word = "xyzxyzxyzxyz"
-print(Solution().minimumPushes(word))
-word = "aabbccddeeffgghhiiiiii"
-print(Solution().minimumPushes(word))
